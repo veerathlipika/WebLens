@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="WebLens passive website security assessment and hackability estimator.">
+<title>WebLens — Website Security Scanner</title>
+<link rel="stylesheet" href="./theme.css">
+</head>
+<body>
+<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+<div class="shell">
+<header class="nav">
+  <div class="logo">Web<span>Lens</span></div>
+  <div class="nav-actions"><span class="status-dot"></span><span class="pill">Passive security assessment</span></div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Security visibility • OWASP-inspired checks</div>
+  <h1>See what makes a website <span>easier to attack.</span></h1>
+  <p class="lead">Enter a public website URL. WebLens analyzes observable security controls, explains each weakness, gives a practical fix, and estimates the site's hackability from the signals it can safely observe.</p>
+  <form id="scanForm" class="scanner">
+    <div class="input-wrap"><span>↗</span><input id="url" type="url" placeholder="https://example.com" autocomplete="url" required></div>
+    <button id="scanBtn" class="btn" type="submit"><span>Run security scan</span><b>→</b></button>
+  </form>
+  <div class="quick"><span>Try a demo:</span><button type="button" data-demo="https://example.com">example.com</button><button type="button" data-demo="https://httpbin.org">httpbin.org</button><span class="safe-note">No exploitation • no credentials • SSRF protected</span></div>
+  <div id="error"></div>
+</section>
+
+<section id="results" class="results section" hidden>
+  <div class="result-head">
+    <div><div class="eyebrow">Live assessment</div><h2 id="resultTitle">Security report</h2><p id="target" class="meta"></p></div>
+    <div class="head-actions"><button id="copyBtn" class="ghost">Copy report</button><button id="newScan" class="ghost">New scan</button></div>
+  </div>
+
+  <div class="dashboard">
+    <div class="score-card card">
+      <div class="card-label">Security posture</div>
+      <div class="score-ring" id="scoreRing"><div><strong id="score">—</strong><small>/100</small></div></div>
+      <div id="rating" class="rating">—</div>
+      <div class="meter"><i id="meter"></i></div>
+      <div class="hack-row"><span>Estimated hackability</span><strong id="hackability">—</strong></div>
+      <p class="disclaimer">This is a risk estimate based on passive evidence, not a guarantee that the target can or cannot be hacked.</p>
+    </div>
+
+    <div class="card overview-card">
+      <div class="card-label">Risk overview</div>
+      <div class="stat-grid">
+        <div class="stat"><strong id="checks">0</strong><span>Checks</span></div>
+        <div class="stat"><strong id="critical">0</strong><span>Critical</span></div>
+        <div class="stat"><strong id="warnings">0</strong><span>Warnings</span></div>
+        <div class="stat"><strong id="passed">0</strong><span>Passed</span></div>
+      </div>
+      <div class="summary-box"><b>What matters most</b><div id="topRisks">No major risks detected.</div></div>
+      <p id="summary" class="meta"></p>
+    </div>
+  </div>
+
+  <div class="card findings-card">
+    <div class="findings-top">
+      <div><div class="card-label">Detailed findings</div><h2>Problem → impact → solution</h2></div>
+      <div class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="critical">Critical</button><button class="filter" data-filter="warning">Warnings</button><button class="filter" data-filter="ok">Passed</button><button class="filter" data-filter="neutral">Info</button></div>
+    </div>
+    <div id="findings"></div>
+  </div>
+</section>
+
+<section class="section feature-section">
+  <div class="eyebrow">What WebLens looks for</div>
+  <h2>Security controls you can actually act on.</h2>
+  <div class="feature-grid">
+    <article class="feature card"><div class="feature-icon">01</div><h3>Transport</h3><p>HTTPS, HSTS, redirects and mixed-content signals.</p></article>
+    <article class="feature card"><div class="feature-icon">02</div><h3>Browser defenses</h3><p>CSP, clickjacking, MIME sniffing, referrer and permissions policies.</p></article>
+    <article class="feature card"><div class="feature-icon">03</div><h3>Sessions</h3><p>Observable Secure, HttpOnly and SameSite cookie attributes.</p></article>
+    <article class="feature card"><div class="feature-icon">04</div><h3>App surface</h3><p>Forms, API hints, CORS signals and technology disclosure.</p></article>
+  </div>
+</section>
+
+<section class="section how">
+  <div class="card how-card"><div><div class="eyebrow">Important limitation</div><h2>Passive does not mean complete.</h2></div><p>WebLens deliberately does not attempt login bypass, privilege escalation, SQL injection, brute force, credential testing, exploitation, or destructive actions. Authentication and authorization require authorized, context-aware testing. The report tells you exactly what was observable and what should be tested next.</p></div>
+</section>
+
+<footer class="footer">WebLens v2 • Passive website security assessment • Use only on systems you own or are authorized to assess.</footer>
+</div>
+<script src="./app.js"></script>
+</body>
+</html>
